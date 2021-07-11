@@ -1,4 +1,7 @@
-# unzip rpi-boot-eeprom-recovery-2019-09-10-vl805-000137ab.zip
+#!/bin/bash
+
+set -e
+
 git submodule init
 git submodule sync
 git submodule update
@@ -7,9 +10,11 @@ pushd rpi-eeprom/
 git pull origin master
 popd
 
-newest_firmware=$(ls rpi-eeprom/firmware/beta/pieeprom-* | gawk 'END { print $0 }')
-newest_vl805=$(ls rpi-eeprom/firmware/beta/vl805-* | gawk 'END { print $0 }')
+newest_firmware=$(ls rpi-eeprom/firmware/beta/pieeprom-* | sort | gawk 'END { print $0 }')
+newest_vl805=$(ls rpi-eeprom/firmware/beta/vl805-* | sort | gawk 'END { print $0 }')
 
+echo ${newest_firmware}
+echo ${newest_vl805}
 ./rpi-eeprom/rpi-eeprom-config ${newest_firmware} >bootconf.txt
 vim bootconf.txt
 ./rpi-eeprom/rpi-eeprom-config --out pieeprom.bin --config bootconf.txt ${newest_firmware}
