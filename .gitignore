@@ -1,0 +1,5 @@
+release/
+beta_release/
+*.bin
+*.sig
+
