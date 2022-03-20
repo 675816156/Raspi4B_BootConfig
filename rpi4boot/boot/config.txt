@@ -1,0 +1,11 @@
+[all]
+arm_64bit=1
+enable_uart=1
+kernel_address=0x80000
+initramfs ramdisk.img 0x10000000
+device_tree_address=0x08000000
+
+[pi4]
+armstub=bl31.bin
+uart_2ndstage=1
+device_tree=bcm2711-rpi-4-b.dtb
